@@ -22,8 +22,8 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
 
     @Bean
-    public WebSecurityCustomizer configure(){
-        return (web)->web.ignoring()
+    public WebSecurityCustomizer configure() {
+        return (web) -> web.ignoring()
                 .requestMatchers("/static/**");
     }
 
@@ -32,7 +32,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/api/hello", "/swagger-resources/**","/api/**").permitAll()
+                                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/api/hello", "/swagger-resources/**", "/api/**", "/h2-console/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->
@@ -43,3 +43,4 @@ public class SecurityConfig {
         return http.build();
     }
 }
+
