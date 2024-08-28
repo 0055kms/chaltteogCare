@@ -3,17 +3,11 @@ spring:
     active: mock
 
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1;MODE=MySQL;
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
+    url: jdbc:mysql://localhost:3306/chal
+    username: kms
+    password: kms1122
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: true
 
   jpa:
     hibernate:
@@ -21,7 +15,7 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.H2Dialect
+        dialect: org.hibernate.dialect.MySQL5Dialect
 
   sql:
     init:

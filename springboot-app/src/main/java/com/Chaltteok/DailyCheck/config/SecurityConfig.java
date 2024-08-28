@@ -30,10 +30,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
-                .headers(headers -> headers.frameOptions().disable()) // 이 줄을 추가했습니다
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/api/hello", "/swagger-resources/**", "/api/**", "/h2-console/**").permitAll()
+                                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/api/hello", "/swagger-resources/**", "/api/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManagement ->
