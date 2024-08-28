@@ -3,11 +3,10 @@ spring:
     active: mock
 
   datasource:
-    url: jdbc:mysql://localhost:3306/chal
+    url: jdbc:mysql://chal-db.cd8iw8mee876.ap-northeast-2.rds.amazonaws.com:3306/chal
     username: kms
-    password: kms1122
+    password: kms11221122
     driver-class-name: com.mysql.cj.jdbc.Driver
-
 
   jpa:
     hibernate:
@@ -15,7 +14,8 @@ spring:
     show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
+
 
   sql:
     init:
