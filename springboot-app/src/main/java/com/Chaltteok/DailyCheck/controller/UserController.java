@@ -30,7 +30,8 @@ public class UserController {
     public ResponseEntity<?> login(@RequestBody LoginDTO loginDTO) {
         try {
             String token = userService.login(loginDTO);
-            return ResponseEntity.ok("Bearer " + token);
+            String userId = userService.getUserId(loginDTO);
+            return ResponseEntity.ok("{\"token\": \"Bearer " + token + "\", \"userId\": \"" + userId + "\"}");
         } catch (UsernameNotFoundException | BadCredentialsException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
         } catch (JwtValidationException ex) {

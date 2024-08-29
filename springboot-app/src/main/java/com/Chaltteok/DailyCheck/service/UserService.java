@@ -61,4 +61,12 @@ public class UserService {
     public void delete(Long id){
         userRepository.deleteById(id);
     }
+
+    public String getUserId(LoginDTO dto) {
+        UserEntity user = userRepository.findByName(dto.getName());
+        if (user == null) {
+            throw new UsernameNotFoundException("No User found with name: " + dto.getName());
+        }
+        return String.valueOf(user.getId());
+    }
 }
