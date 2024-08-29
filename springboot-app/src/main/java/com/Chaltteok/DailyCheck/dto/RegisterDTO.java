@@ -11,4 +11,9 @@ public class RegisterDTO {
     private String password;
     private String address;
     private String telephoneNumber;
+    private String confirmPassword;
+
+    public boolean isPasswordMatching() {
+        return this.password != null && this.password.equals(this.confirmPassword);
+    }
 }

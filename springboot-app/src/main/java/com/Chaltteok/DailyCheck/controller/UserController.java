@@ -22,8 +22,12 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterDTO registerDTO) {
-        long userId = userService.save(registerDTO);
-        return ResponseEntity.ok("User Id: "+userId);
+        try {
+            long userId = userService.save(registerDTO);
+            return ResponseEntity.ok("User Id: " + userId);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping("/login")

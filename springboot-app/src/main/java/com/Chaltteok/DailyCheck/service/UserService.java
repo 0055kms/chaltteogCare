@@ -20,7 +20,11 @@ public class UserService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public long save(RegisterDTO dto){
+    public long save(RegisterDTO dto) {
+        if (!dto.getPassword().equals(dto.getConfirmPassword())) {
+            throw new IllegalArgumentException("Passwords do not match");
+        }
+
         return userRepository.save(UserEntity.builder()
                 .name(dto.getName())
                 .password(bCryptPasswordEncoder.encode(dto.getPassword()))
@@ -28,6 +32,7 @@ public class UserService {
                 .telephoneNumber(dto.getTelephoneNumber())
                 .build()).getId();
     }
+
 
     public String login(LoginDTO dto){
         String name = dto.getName();

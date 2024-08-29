@@ -1,8 +1,11 @@
 package com.Chaltteok.DailyCheck.service;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+
+import com.Chaltteok.DailyCheck.dto.ScheduleDTOResponse;
 import com.Chaltteok.DailyCheck.dto.SeniorDTORequest;
 import com.Chaltteok.DailyCheck.dto.SeniorDTOResponse;
+import com.Chaltteok.DailyCheck.entity.ScheduleEntity;
 import com.Chaltteok.DailyCheck.entity.SeniorEntity;
 import com.Chaltteok.DailyCheck.entity.UserEntity;
 import com.Chaltteok.DailyCheck.exception.ResourceNotFoundException;
@@ -18,6 +21,8 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -26,6 +31,15 @@ public class SeniorService {
     private final SeniorRepository seniorRepository;
     private final UserRepository userRepository;
     private final FileUploadService fileUploadService;
+
+
+    public List<SeniorDTOResponse> getAllSeniors(long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new UserNotFoundException("User not found with id " + userId);
+        }
+        List<SeniorEntity> SeniorEntities = seniorRepository.findByUser_Id(userId);
+        return SeniorEntities.stream().map(SeniorDTOResponse::fromEntity).collect(Collectors.toList());
+    }
 
     public SeniorDTOResponse getSenior(long seniorId) {
         SeniorEntity seniorEntity = seniorRepository.findById(seniorId)

@@ -1,5 +1,6 @@
 package com.Chaltteok.DailyCheck.controller;
 
+import com.Chaltteok.DailyCheck.dto.ScheduleDTOResponse;
 import com.Chaltteok.DailyCheck.dto.SeniorDTORequest;
 import com.Chaltteok.DailyCheck.dto.SeniorDTOResponse;
 import com.Chaltteok.DailyCheck.entity.SeniorEntity;
@@ -16,12 +17,20 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/senior")
 public class SeniorController {
 
     private final SeniorService seniorService;
+
+    @GetMapping
+    public ResponseEntity<List<SeniorDTOResponse>> getAllSeniors(@RequestParam long userId) {
+        List<SeniorDTOResponse> seniors = seniorService.getAllSeniors(userId);
+        return ResponseEntity.ok(seniors);
+    }
 
     @GetMapping("/{seniorId}")
     public ResponseEntity<SeniorDTOResponse> getSenior(@PathVariable long seniorId) {
